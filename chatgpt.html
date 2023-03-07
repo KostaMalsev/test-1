@@ -1,2 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photo Picker App</title>
+</head>
+<body>
+  <input type="file" id="fileInput" />
+  <button id="shareButton" style="display:none;">Share</button>
+  <div id="imageContainer"></div>
 
-
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const shareButton = document.getElementById('shareButton');
+    const imageContainer = document.getElementById('imageContainer');
+
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+
+      if (!file || !file.type.match('image.*')) {
+        alert('Please select an image file');
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.addEventListener('load', (event) => {
+        const imageUrl = event.target.result;
+        const image = document.createElement('img');
+        image.src = imageUrl;
+        imageContainer.appendChild(image);
+        shareButton.style.display = 'block';
+      });
+
+      reader.readAsDataURL(file);
+    });
+
+    shareButton.addEventListener('click', () => {
+      const imageUrl = imageContainer.querySelector('img').src;
+
+      if (navigator.share) {
+        navigator.share({ url: imageUrl });
+      } else {
+        alert('Sharing not supported');
+      }
+    });
+  </script>
+</body>
+</html>
+
