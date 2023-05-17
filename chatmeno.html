@@ -1,2 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript MP3 Player</title>
+</head>
+<body>
+  <h1>JavaScript MP3 Player</h1>
+  <audio id="myAudio" src="your-audio-file.mp3" controls>
+    Your browser does not support the audio element.
+  </audio>
 
-
+  <script>
+    var audio = document.getElementById("myAudio");
+    audio.play();
+  </script>
+</body>
+</html>
